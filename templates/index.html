@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🩺 AI Medical Assistant</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e6f2f5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #0077b6;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    #chat-container {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 15px;
+      margin: 8px 0;
+      line-height: 1.4;
+      font-size: 1rem;
+    }
+
+    .user {
+      align-self: flex-end;
+      background-color: #caf0f8;
+      color: #000;
+    }
+
+    .assistant {
+      align-self: flex-start;
+      background-color: #90e0ef;
+      color: #000;
+    }
+
+    #input-container {
+      display: flex;
+      padding: 1rem;
+      background-color: #ffffff;
+      border-top: 1px solid #ccc;
+    }
+
+    #query {
+      flex: 1;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #0077b6;
+      border-radius: 10px;
+    }
+
+    button {
+      margin-left: 10px;
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #023e8a;
+    }
+  </style>
+</head>
+<body>
+  <header>🩺 Medical Assistant by Muhammad Hassan</header>
+
+  <div id="chat-container">
+    <div class="assistant message">👩‍⚕️ Hello! I'm your AI Medical Assistant. How can I help you today?</div>
+  </div>
+
+  <div id="input-container">
+    <input type="text" id="query" placeholder="Ask me a medical question..." />
+    <button onclick="sendQuery()">Send</button>
+  </div>
+
+  <script>
+    const chatContainer = document.getElementById("chat-container");
+    const input = document.getElementById("query");
+
+    function addMessage(role, text) {
+      const message = document.createElement("div");
+      message.className = `message ${role}`;
+      message.textContent = (role === 'user' ? '🧑‍💬 ' : '👩‍⚕️ ') + text;
+      chatContainer.appendChild(message);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    async function sendQuery() {
+      const query = input.value.trim();
+      if (!query) return;
+      addMessage("user", query);
+      input.value = "";
+
+      const response = await fetch("/gnerate_resposne", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ query })
+      });
+
+      const data = await response.json();
+      addMessage("assistant", data.response);
+    }
+
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendQuery();
+    });
+  </script>
+</body>
+</html>

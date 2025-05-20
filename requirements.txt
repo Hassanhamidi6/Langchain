@@ -1,0 +1,17 @@
+langchain 
+langchain-community
+langchain-openai
+langchain-core
+streamlit
+python-dotenv
+notebook
+langchain-google-genai
+
+langserve
+fastapi
+uvicorn
+
+sse_starlette
+flask 
+
+faiss-cpu
