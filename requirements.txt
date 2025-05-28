@@ -15,3 +15,13 @@ sse_starlette
 flask 
 
 faiss-cpu
+bs4
+pypdf
+arxiv
+wikipedia
+langchainhub
+groq
+langchain_groq
+sentence_transformers 
+langchain-huggingface
+numpy

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from RagByKrish import load_vector_store, get_response, create_vector_store
+from RAG.langchin import load_vector_store, get_response, create_vector_store
 
 # Step 1: Create vector store from PDF
 load_vector_store("Large_Medical_Information_Handbook.pdf", "Health")  # Creates and saves the vector store in a folder

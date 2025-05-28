@@ -12,13 +12,15 @@ load_dotenv()
 api_key=os.getenv("bOTAPIKEY")
 
 #generating embeddings
+
+
 embeddings= GoogleGenerativeAIEmbeddings(
     model= "models/embedding-001", 
     google_api_key= api_key
     )
 
 model=ChatGoogleGenerativeAI(model="gemini-2.0-flash", api_key=api_key)
-
+ 
 prompt = PromptTemplate(
     input_variables=["context", "query"],
     template="""
