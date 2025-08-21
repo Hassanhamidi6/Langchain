@@ -5,32 +5,30 @@ import streamlit as st
 import os 
 from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+load_dotenv()   
 
-# Retrieve API key
+# API key
 api_key = os.getenv("bOTAPIKEY")
 
-# Streamlit app UI
-st.title("Generative AI Chatbot")
-input_text = st.text_input("Enter your query:")
-
-# Prompt Template (correct grammar and format)
+# Prompt Template 
 prompt = ChatPromptTemplate.from_messages([
     ("system", "You are a helpful assistant. Make sure to answer every query asked by the user in a very intelligent and concise way."),
     ("user", "Query: {query}")
 ])
 
-# Google Generative AI LLM with API key
+# Google Generative AI 
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=api_key)
 
 # Output parser
 output_parser = StrOutputParser()
 
-# Combine prompt, model, and parser into a chain
+# Making chain
 chain = prompt | llm | output_parser
 
-# Run when user provides input
+# Streamlit 
+st.title("Generative AI Chatbot")
+input_text = st.text_input("Enter your query:")
+
 if input_text:
     response = chain.invoke({"query": input_text})
     st.write(response)
