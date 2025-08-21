@@ -5,7 +5,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.prompts import PromptTemplate
 
 # API Key
-api_key= "AIzaSyD8lcET3a8LNco0pe31Myz1GoARJCkZSFw"
+api_key= ""
 
 # LLM
 model= ChatGoogleGenerativeAI(model= "gemini-2.0-flash", api_key=api_key)
